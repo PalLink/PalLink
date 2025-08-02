@@ -1,0 +1,14 @@
+LIBRARY
+EXPORTS
+	DirectSoundCreate=f0 @1
+	DirectSoundEnumerateA=f1 @2
+	DirectSoundEnumerateW=f2 @3
+	DllCanUnloadNow=f3 @4
+	DllGetClassObject=f4 @5
+	DirectSoundCaptureCreate=f5 @6
+	DirectSoundCaptureEnumerateA=f6 @7
+	DirectSoundCaptureEnumerateW=f7 @8
+	GetDeviceID=f8 @9
+	DirectSoundFullDuplexCreate=f9 @10
+	DirectSoundCreate8=f10 @11
+	DirectSoundCaptureCreate8=f11 @12

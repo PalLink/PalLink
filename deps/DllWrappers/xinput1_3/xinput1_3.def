@@ -1,0 +1,14 @@
+LIBRARY
+EXPORTS
+  DllMain=f0 @1
+  XInputEnable=f1 @5
+  XInputGetBatteryInformation=f2 @7
+  XInputGetCapabilities=f3 @4
+  XInputGetDSoundAudioDeviceGuids=f4 @6
+  XInputGetKeystroke=f5 @8
+  XInputGetState=f6 @2
+  XInputSetState=f7 @3
+  ordinal100=f8 @100
+  ordinal101=f9 @101
+  ordinal102=f10 @102
+  ordinal103=f11 @103

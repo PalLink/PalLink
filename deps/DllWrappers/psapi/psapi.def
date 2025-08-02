@@ -1,0 +1,29 @@
+LIBRARY
+EXPORTS
+  EmptyWorkingSet=f0 @1
+  EnumDeviceDrivers=f1 @2
+  EnumPageFilesA=f2 @3
+  EnumPageFilesW=f3 @4
+  EnumProcessModules=f4 @5
+  EnumProcessModulesEx=f5 @6
+  EnumProcesses=f6 @7
+  GetDeviceDriverBaseNameA=f7 @8
+  GetDeviceDriverBaseNameW=f8 @9
+  GetDeviceDriverFileNameA=f9 @10
+  GetDeviceDriverFileNameW=f10 @11
+  GetMappedFileNameA=f11 @12
+  GetMappedFileNameW=f12 @13
+  GetModuleBaseNameA=f13 @14
+  GetModuleBaseNameW=f14 @15
+  GetModuleFileNameExA=f15 @16
+  GetModuleFileNameExW=f16 @17
+  GetModuleInformation=f17 @18
+  GetPerformanceInfo=f18 @19
+  GetProcessImageFileNameA=f19 @20
+  GetProcessImageFileNameW=f20 @21
+  GetProcessMemoryInfo=f21 @22
+  GetWsChanges=f22 @23
+  GetWsChangesEx=f23 @24
+  InitializeProcessForWsWatch=f24 @25
+  QueryWorkingSet=f25 @26
+  QueryWorkingSetEx=f26 @27
