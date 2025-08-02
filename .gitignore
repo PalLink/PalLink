@@ -1,0 +1,6 @@
+# Project Dynamic Files
+build/
+build-*/
+out/
+bin/
+lib/
