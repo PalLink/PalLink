@@ -25,7 +25,7 @@ namespace DLL
 #ifdef _DEBUG
 		stdout_sink->set_level(spdlog::level::trace);
 #else
-		stdoutSink->set_level(spdlog::level::info);
+		stdout_sink->set_level(spdlog::level::info);
 #endif
 
 		auto logger = std::make_shared<spdlog::logger>(DLL_NAME, stdout_sink);
