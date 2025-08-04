@@ -97,5 +97,21 @@ target_link_libraries(PalLink
 )
 
 
+if (UNIX)
+    message(STATUS "Applying Linux compatibility build options")
+
+    # Safe generic CPU flags
+    target_compile_options(PalLink PRIVATE
+        -march=x86-64
+        -mtune=generic
+        -O2
+        -fPIC
+    )
+
+    # Strip symbols for smaller size
+    target_link_options(PalLink PRIVATE -Wl,--strip-all)
+endif()
+
+
 # Set startup project in Visual Studio
 set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT PalLink)
