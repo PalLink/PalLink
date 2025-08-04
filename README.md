@@ -1,10 +1,16 @@
 # PalLink
 
-![GitHub Last Commit](https://img.shields.io/github/last-commit/PalLink/PalLink?style=flat-square)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PalLink/PalLink?style=flat-square)
-![GitHub Tag](https://img.shields.io/github/v/tag/PalLink/PalLink?style=flat-square)
+<!-- Build & CI -->
+![Linux Build](https://img.shields.io/github/actions/workflow/status/PalLink/PalLink/cmake-linux-debian.yml?label=Linux&style=flat-square)
+![Windows Build](https://img.shields.io/github/actions/workflow/status/PalLink/PalLink/cmake-windows.yml?label=Windows&style=flat-square)
+
+<!-- Version & Release -->
+![Latest Tag](https://img.shields.io/github/v/tag/PalLink/PalLink?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/PalLink/PalLink/latest/total?style=flat-square)
+
+<!-- Social -->
 ![GitHub Stars](https://img.shields.io/github/stars/PalLink/PalLink?style=social)
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/PalLink/PalLink/latest/total?style=flat-square)
+
 
 ## ⚙️ Setting up PalLink
 
