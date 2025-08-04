@@ -1,21 +1,15 @@
 ##########
 # spdlog #
 ##########
-set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE BOOL "" FORCE)
-
 set(SPDLOG_ENABLE_PCH ON CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_WARNINGS ON CACHE BOOL "" FORCE)
-set(SPDLOG_WCHAR_SUPPORT ON CACHE BOOL "" FORCE)
-set(SPDLOG_WCHAR_FILENAMES ON CACHE BOOL "" FORCE)
-set(SPDLOG_WCHAR_CONSOLE ON CACHE BOOL "" FORCE)
-# set(SPDLOG_NO_EXCEPTIONS ON CACHE BOOL "" FORCE)
-set(SPDLOG_DISABLE_DEFAULT_LOGGER ON CACHE BOOL "" FORCE)
 set(SPDLOG_COMPILED_LIB ON CACHE BOOL "" FORCE)
-
 add_subdirectory(spdlog-1.15.3)
 set_target_properties(spdlog PROPERTIES FOLDER "Dependencies")
+
 
 ###############
 # DllWrappers #
 ###############
-add_subdirectory(DllWrappers)
+if (WIN32)
+    add_subdirectory(DllWrappers)
+endif()
