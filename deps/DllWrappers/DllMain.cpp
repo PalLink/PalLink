@@ -68,8 +68,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 				spdlog::warn("[{}] PalLink.dll already loaded.", DLL_NAME);
 				return TRUE;
 			}
+			//MessageBox(0, "Hello World!", DLL_NAME, MB_OK);
 
-			pallink = LoadLibrary("PalLink.dll");
+			pallink = LoadLibraryA("PalLink.dll");
 			if (!pallink)
 			{
 				spdlog::critical("[{}] Failed to load PalLink.dll.", DLL_NAME);

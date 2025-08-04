@@ -85,6 +85,7 @@ target_include_directories(PalLink
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/source"
+        "${CMAKE_CURRENT_SOURCE_DIR}/deps/PolyHook_2_0/include"
 )
 
 
@@ -92,6 +93,7 @@ target_include_directories(PalLink
 target_link_libraries(PalLink
     PRIVATE
         spdlog::spdlog
+        PolyHook_2
 )
 
 

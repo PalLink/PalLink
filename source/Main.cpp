@@ -4,14 +4,36 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#include <polyhook2/IHook.hpp>
+#include <polyhook2/Detour/NatDetour.hpp>
+
+namespace
+{
+	static PLH::NatDetour* g_hook = nullptr;
+}
+
+#include <cstdarg>
+#include <cstdio>
+
+uint64_t hookPrintfTramp = NULL;
+NOINLINE int __cdecl h_hookPrintf(const char* format, ...) {
+	char buffer[1024];
+	va_list args;
+	va_start(args, format);
+	vsnprintf(buffer, sizeof(buffer), format, args);
+	va_end(args);
+
+	return PLH::FnCast(hookPrintfTramp, &printf)("INTERCEPTED YO:%s", buffer);
+}
+
 void startup()
 {
-	spdlog::trace("PalLink loaded!");
-	spdlog::debug("PalLink loaded!");
 	spdlog::info("PalLink loaded!");
-	spdlog::warn("PalLink loaded!");
-	spdlog::error("PalLink loaded!");
-	spdlog::critical("PalLink loaded!");
+
+	g_hook = new PLH::NatDetour((uint64_t)&printf, (uint64_t)h_hookPrintf, &hookPrintfTramp);
+	g_hook->hook();
+
+	printf("%s %s %f\n", "hello", "world!", 0.5f);
 }
 
 void shutdown()
