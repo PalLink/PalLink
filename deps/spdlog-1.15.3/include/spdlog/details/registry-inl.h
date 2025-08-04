@@ -40,8 +40,16 @@ SPDLOG_INLINE registry::registry()
     auto color_sink = std::make_shared<sinks::ansicolor_stdout_sink_mt>();
     #endif
 
+    color_sink->set_pattern("[%T][%^%l%$] %v");
+
     const char *default_logger_name = "";
     default_logger_ = std::make_shared<spdlog::logger>(default_logger_name, std::move(color_sink));
+#ifdef NDEBUG
+    default_logger_->set_level(spdlog::level::info);
+#else
+    default_logger_->set_level(spdlog::level::trace);
+#endif
+
     loggers_[default_logger_name] = default_logger_;
 
 #endif  // SPDLOG_DISABLE_DEFAULT_LOGGER
