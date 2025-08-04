@@ -9,7 +9,7 @@
 ## ✅ Supported Platforms
 
 ![Windows](https://img.shields.io/badge/-Windows-blue?style=flat-square)
-
+![Linux](https://img.shields.io/badge/-Linux-red?style=flat-square)
 
 ## ⚙️ Setting up PalLink
 
