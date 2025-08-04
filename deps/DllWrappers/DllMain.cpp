@@ -113,7 +113,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 				return FALSE;
 			}
 
-			spdlog::info("Loaded PalLink.dll!");
+			spdlog::debug("Loaded PalLink.dll!");
 
 			return TRUE;
 		}
