@@ -1,0 +1,33 @@
+name: Build PalLink on Debian 12
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: RelWithDebInfo
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: debian:12
+      options: --user root
+
+    steps:
+    - name: Install dependencies
+      run: |
+        apt update
+        apt install -y build-essential cmake git
+
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Build
+      run: cmake --build build --config ${{env.BUILD_TYPE}}
