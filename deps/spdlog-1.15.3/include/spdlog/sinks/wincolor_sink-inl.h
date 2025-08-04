@@ -21,20 +21,38 @@ SPDLOG_INLINE wincolor_sink<ConsoleMutex>::wincolor_sink(void *out_handle, color
       mutex_(ConsoleMutex::mutex()),
       formatter_(details::make_unique<spdlog::pattern_formatter>()) {
     set_color_mode_impl(mode);
+
     // set level colors
-    colors_[level::trace] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;  // white
-    colors_[level::debug] = FOREGROUND_GREEN | FOREGROUND_BLUE;                   // cyan
-    colors_[level::info] = FOREGROUND_GREEN;                                      // green
-    colors_[level::warn] =
-        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;  // intense yellow
-    colors_[level::err] = FOREGROUND_RED | FOREGROUND_INTENSITY;   // intense red
-    colors_[level::critical] = BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN |
-                               FOREGROUND_BLUE |
-                               FOREGROUND_INTENSITY;  // intense white on red background
+#define FOREGROUND_WHITE (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
+#define FOREGROUND_YELLOW (FOREGROUND_RED | FOREGROUND_GREEN)
+#define FOREGROUND_CYAN (FOREGROUND_GREEN | FOREGROUND_BLUE)
+
+    // white
+    colors_[level::trace] = FOREGROUND_CYAN | FOREGROUND_INTENSITY;
+
+    // cyan
+    colors_[level::debug] = FOREGROUND_CYAN;
+
+    // green
+    colors_[level::info] = FOREGROUND_GREEN;
+
+    // intense yellow
+    colors_[level::warn] = FOREGROUND_YELLOW | FOREGROUND_INTENSITY;
+
+    // intense red
+    colors_[level::err] = FOREGROUND_RED | FOREGROUND_INTENSITY;
+
+    // intense white on red background
+    colors_[level::critical] = FOREGROUND_WHITE | BACKGROUND_RED | FOREGROUND_INTENSITY;
+
     colors_[level::off] = 0;
+
+#undef FOREGROUND_WHITE
+#undef FOREGROUND_YELLOW
+#undef FOREGROUND_CYAN
 }
 
-template <typename ConsoleMutex>
+    template <typename ConsoleMutex>
 SPDLOG_INLINE wincolor_sink<ConsoleMutex>::~wincolor_sink() {
     this->flush();
 }

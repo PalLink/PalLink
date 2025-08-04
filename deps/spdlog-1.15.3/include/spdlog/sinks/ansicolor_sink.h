@@ -76,7 +76,9 @@ public:
     /// Bold colors
     const string_view_t yellow_bold = "\033[33m\033[1m";
     const string_view_t red_bold = "\033[31m\033[1m";
+    const string_view_t cyan_bold = "\033[36m\033[1m";
     const string_view_t bold_on_red = "\033[1m\033[41m";
+    const string_view_t white_bold_on_red = "\033[37m\033[1m\033[41m";
 
 private:
     FILE *target_file_;
