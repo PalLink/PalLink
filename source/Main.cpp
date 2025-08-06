@@ -11,9 +11,12 @@
 
 namespace
 {
+	static std::thread g_restapi_thread;
+	static crow::SimpleApp g_restapi_app;
 	static PLH::NatDetour* g_hook = nullptr;
 }
 
+#include <thread>
 #include <cstdarg>
 #include <cstdio>
 
@@ -22,21 +25,22 @@ NOINLINE int __cdecl h_hookPrintf(const char* format, ...) {
 	char buffer[1024];
 	va_list args;
 	va_start(args, format);
-	vsnprintf(buffer, sizeof(buffer), format, args);
+	int bytes_written = vsnprintf(buffer, sizeof(buffer), format, args);
 	va_end(args);
 
-	return PLH::FnCast(hookPrintfTramp, &printf)("INTERCEPTED YO:%s", buffer);
+        spdlog::info(buffer);
+
+	return bytes_written; //PLH::FnCast(hookPrintfTramp, &printf)("INTERCEPTED YO:%s", buffer);
 }
 
 inline void test_restapi()
 {
-	crow::SimpleApp app;
 
-	CROW_ROUTE(app, "/")([]() {
-		return "Hello world";
+	CROW_ROUTE(g_restapi_app, "/")([]() {
+		return "Hello Palworld";
 		});
 
-	app.port(17993).multithreaded().run();
+	g_restapi_app.port(17993).multithreaded().run();
 }
 
 void startup()
@@ -47,21 +51,22 @@ void startup()
 	g_hook->hook();
 
 	printf("%s %s %f\n", "hello", "world!", 0.5f);
+
+	g_restapi_thread = std::thread(test_restapi);
 }
 
 void shutdown()
 {
+	spdlog::info("Stopping RESTAPI");
+	g_restapi_app.stop();
+	g_restapi_thread.join();
+	g_hook->unHook();
+	spdlog::info("RESTAPI stopped!");
 	spdlog::info("PalLink unloaded!");
 }
 
 #ifdef _WIN32
 	#include <Windows.h>
-
-	DWORD WINAPI win_thread_wrapper(LPVOID lpThreadParameter)
-	{
-		test_restapi();
-		return 0;
-	}
 
 	BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID)
 	{
@@ -71,7 +76,6 @@ void shutdown()
 			{
 				DisableThreadLibraryCalls(module);
 				startup();
-				CreateThread(NULL, NULL, win_thread_wrapper, nullptr, NULL, NULL);
 				return TRUE;
 			}
 			case DLL_PROCESS_DETACH:
