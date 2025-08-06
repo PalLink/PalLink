@@ -6,7 +6,7 @@
 //#define CROW_ENABLE_DEBUG
 
 /* #ifdef - enables logging */
-#define CROW_ENABLE_LOGGING
+//#define CROW_ENABLE_LOGGING
 
 /* #ifdef - enforces section 5.2 and 6.1 of RFC6455 (only accepting masked messages from clients) */
 //#define CROW_ENFORCE_WS_SPEC
