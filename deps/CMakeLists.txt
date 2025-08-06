@@ -24,3 +24,10 @@ set_target_properties(PolyHook_2 PROPERTIES FOLDER "Dependencies")
 if (WIN32)
     add_subdirectory(DllWrappers)
 endif()
+
+
+########
+# asio #
+########
+add_subdirectory(asio-1.30.2)
+
