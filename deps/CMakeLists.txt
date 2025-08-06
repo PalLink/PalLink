@@ -12,6 +12,10 @@ set_target_properties(spdlog PROPERTIES FOLDER "Dependencies")
 set(POLYHOOK_BUILD_STATIC_RUNTIME OFF CACHE BOOL "" FORCE)
 set(POLYHOOK_BUILD_SHARED_LIB OFF CACHE BOOL "" FORCE)
 add_subdirectory(PolyHook_2_0)
+set_target_properties(asmjit PROPERTIES FOLDER "Dependencies")
+set_target_properties(asmtk PROPERTIES FOLDER "Dependencies")
+set_target_properties(Zycore PROPERTIES FOLDER "Dependencies")
+set_target_properties(Zydis PROPERTIES FOLDER "Dependencies")
 set_target_properties(PolyHook_2 PROPERTIES FOLDER "Dependencies")
 
 ###############
@@ -20,3 +24,17 @@ set_target_properties(PolyHook_2 PROPERTIES FOLDER "Dependencies")
 if (WIN32)
     add_subdirectory(DllWrappers)
 endif()
+
+
+########
+# asio #
+########
+add_subdirectory(asio-1.30.2)
+
+
+###########
+# CrowCpp #
+###########
+set(CROW_INSTALL OFF CACHE BOOL "" FORCE)
+add_subdirectory(Crow-1.2.1.2)
+set_target_properties(uninstall PROPERTIES FOLDER "Dependencies")
