@@ -7,6 +7,8 @@
 #include <polyhook2/IHook.hpp>
 #include <polyhook2/Detour/NatDetour.hpp>
 
+#include <crow.h>
+
 namespace
 {
 	static PLH::NatDetour* g_hook = nullptr;
@@ -24,6 +26,18 @@ NOINLINE int __cdecl h_hookPrintf(const char* format, ...) {
 	va_end(args);
 
 	return PLH::FnCast(hookPrintfTramp, &printf)("INTERCEPTED YO:%s", buffer);
+}
+
+DWORD WINAPI test(LPVOID lpThreadParameter)
+{
+	crow::SimpleApp app;
+
+	CROW_ROUTE(app, "/")([]() {
+		return "Hello world";
+		});
+
+	app.port(17993).multithreaded().run();
+	return 0;
 }
 
 void startup()
@@ -52,6 +66,7 @@ void shutdown()
 			{
 				DisableThreadLibraryCalls(module);
 				startup();
+				CreateThread(NULL, NULL, test, nullptr, NULL, NULL);
 				return TRUE;
 			}
 			case DLL_PROCESS_DETACH:

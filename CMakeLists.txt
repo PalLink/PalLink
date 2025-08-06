@@ -94,6 +94,7 @@ target_link_libraries(PalLink
     PRIVATE
         spdlog::spdlog
         PolyHook_2
+        Crow::Crow
 )
 
 

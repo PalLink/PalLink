@@ -31,3 +31,10 @@ endif()
 ########
 add_subdirectory(asio-1.30.2)
 
+
+###########
+# CrowCpp #
+###########
+set(CROW_INSTALL OFF CACHE BOOL "" FORCE)
+add_subdirectory(Crow-1.2.1.2)
+set_target_properties(uninstall PROPERTIES FOLDER "Dependencies")
