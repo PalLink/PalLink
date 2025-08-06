@@ -28,7 +28,13 @@ NOINLINE int __cdecl h_hookPrintf(const char* format, ...) {
 	int bytes_written = vsnprintf(buffer, sizeof(buffer), format, args);
 	va_end(args);
 
-        spdlog::info(buffer);
+	// Strip trailing newline if present
+	if (bytes_written > 0 && buffer[bytes_written - 1] == '\n')
+	{
+		buffer[--bytes_written] = '\0';
+	}
+
+    spdlog::info("{}", buffer);
 
 	return bytes_written; //PLH::FnCast(hookPrintfTramp, &printf)("INTERCEPTED YO:%s", buffer);
 }
@@ -50,14 +56,15 @@ void startup()
 	g_hook = new PLH::NatDetour((uint64_t)&printf, (uint64_t)h_hookPrintf, &hookPrintfTramp);
 	g_hook->hook();
 
-	printf("%s %s %f\n", "hello", "world!", 0.5f);
+	printf("%s %s %f\n", "hello", "Palworld!", 0.5f);
 
 	g_restapi_thread = std::thread(test_restapi);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 void shutdown()
 {
-	spdlog::info("Stopping RESTAPI");
+	spdlog::info("Stopping RESTAPI!");
 	g_restapi_app.stop();
 	g_restapi_thread.join();
 	g_hook->unHook();
