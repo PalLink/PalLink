@@ -28,7 +28,7 @@ NOINLINE int __cdecl h_hookPrintf(const char* format, ...) {
 	return PLH::FnCast(hookPrintfTramp, &printf)("INTERCEPTED YO:%s", buffer);
 }
 
-DWORD WINAPI test(LPVOID lpThreadParameter)
+inline void test_restapi()
 {
 	crow::SimpleApp app;
 
@@ -37,7 +37,6 @@ DWORD WINAPI test(LPVOID lpThreadParameter)
 		});
 
 	app.port(17993).multithreaded().run();
-	return 0;
 }
 
 void startup()
@@ -58,6 +57,12 @@ void shutdown()
 #ifdef _WIN32
 	#include <Windows.h>
 
+	DWORD WINAPI win_thread_wrapper(LPVOID lpThreadParameter)
+	{
+		test_restapi();
+		return 0;
+	}
+
 	BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID)
 	{
 		switch (reason)
@@ -66,7 +71,7 @@ void shutdown()
 			{
 				DisableThreadLibraryCalls(module);
 				startup();
-				CreateThread(NULL, NULL, test, nullptr, NULL, NULL);
+				CreateThread(NULL, NULL, win_thread_wrapper, nullptr, NULL, NULL);
 				return TRUE;
 			}
 			case DLL_PROCESS_DETACH:
