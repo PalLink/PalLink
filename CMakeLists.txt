@@ -10,6 +10,10 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: Debug RelWithDebInfo." FORCE)
+endif()
+
 ################
 # Dependencies #
 ################
@@ -19,10 +23,6 @@ add_subdirectory(deps)
 # PalLink #
 ###########
 add_library(PalLink SHARED)
-
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: Debug RelWithDebInfo." FORCE)
-endif()
 
 # Output configuration
 if(CMAKE_CONFIGURATION_TYPES)
