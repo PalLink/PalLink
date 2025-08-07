@@ -24,7 +24,7 @@ namespace
 #include <cstdarg>
 #include <cstdio>
 
-uint64_t hookPrintfTramp = NULL;
+uint64_t hookPrintfTramp = 0;
 NOINLINE int __cdecl h_hookPrintf(const char* format, ...) {
 	char buffer[1024];
 	va_list args;

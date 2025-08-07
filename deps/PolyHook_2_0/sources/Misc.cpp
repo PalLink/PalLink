@@ -11,7 +11,7 @@ uint64_t PLH::findPattern(const uint64_t rangeStart, size_t len, const char* pat
 	char* msk = (char*)&mask_scratch[0];
 
 	if (patSize + 1 > len)
-		return NULL;
+		return 0;
 
 	size_t counter = patSize;
 	while (counter) {
@@ -33,7 +33,7 @@ uint64_t PLH::findPattern(const uint64_t rangeStart, size_t len, const char* pat
 			return rangeStart + n;
 		}
 	}
-	return NULL;
+	return 0;
 }
 
 uint64_t PLH::getPatternSize(const char* pattern)
@@ -53,7 +53,7 @@ uint64_t PLH::findPattern_rev(const uint64_t rangeStart, size_t len, const char*
 	char* msk = (char*)&mask_scratch[0];
 	
 	if (patSize + 1 > len)
-		return NULL;
+		return 0;
 
 	size_t counter = patSize;
 	while (counter) {
@@ -75,7 +75,7 @@ uint64_t PLH::findPattern_rev(const uint64_t rangeStart, size_t len, const char*
 			return rangeStart + n;
 		}
 	}
-	return NULL;
+	return 0;
 }
 
 uint64_t PLH::calc_2gb_below(uint64_t address)

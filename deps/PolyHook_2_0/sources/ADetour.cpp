@@ -187,13 +187,13 @@ bool Detour::unHook() {
     MemoryProtector prot(m_fnAddress, calcInstsSz(m_originalInsts), ProtFlag::R | ProtFlag::W | ProtFlag::X, *this);
     ZydisDisassembler::writeEncoding(m_originalInsts, *this);
 
-    if (m_trampoline != NULL) {
+    if (m_trampoline != 0) {
         delete[](uint8_t*) m_trampoline;
-        m_trampoline = NULL;
+        m_trampoline = 0;
     }
 
     if (m_userTrampVar != nullptr) {
-        *m_userTrampVar = NULL;
+        *m_userTrampVar = 0;
 	}
 
     m_hooked = false;
