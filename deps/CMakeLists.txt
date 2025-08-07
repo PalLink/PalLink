@@ -11,7 +11,11 @@ set_target_properties(spdlog PROPERTIES FOLDER "Dependencies")
 ################
 set(POLYHOOK_BUILD_STATIC_RUNTIME OFF CACHE BOOL "" FORCE)
 set(POLYHOOK_BUILD_SHARED_LIB OFF CACHE BOOL "" FORCE)
+set(ZYDIS_BUILD_DOXYGEN OFF CACHE BOOL "" FORCE)
 add_subdirectory(PolyHook_2_0)
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    target_compile_options(PolyHook_2 PUBLIC -Wno-attributes)
+endif()
 set_target_properties(asmjit PROPERTIES FOLDER "Dependencies")
 set_target_properties(asmtk PROPERTIES FOLDER "Dependencies")
 set_target_properties(Zycore PROPERTIES FOLDER "Dependencies")
@@ -24,6 +28,18 @@ set_target_properties(PolyHook_2 PROPERTIES FOLDER "Dependencies")
 if (WIN32)
     add_subdirectory(DllWrappers)
 endif()
+
+
+#############
+# RapidJSON #
+#############
+set(RAPIDJSON_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(RAPIDJSON_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(RAPIDJSON_BUILD_CXX11 OFF CACHE BOOL "" FORCE)
+set(RAPIDJSON_BUILD_CXX20 ON CACHE BOOL "" FORCE)
+set(RAPIDJSON_HAS_STDSTRING ON CACHE BOOL "" FORCE)
+add_subdirectory(rapidjson-1.1.0)
+set_target_properties(RapidJSON PROPERTIES FOLDER "Dependencies")
 
 
 ########

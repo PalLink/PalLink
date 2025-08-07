@@ -10,6 +10,16 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: Debug RelWithDebInfo." FORCE)
+endif()
+
+if (WIN32)
+    set(USED_DLL_WRAPPER "d3d9" CACHE STRING "Target DLL wrapper to use")
+
+    set(THREADS_PREFER_PTHREAD_FLAG OFF)
+endif()
+
 ################
 # Dependencies #
 ################
@@ -19,7 +29,6 @@ add_subdirectory(deps)
 # PalLink #
 ###########
 add_library(PalLink SHARED)
-
 
 # Output configuration
 if(CMAKE_CONFIGURATION_TYPES)
@@ -43,10 +52,11 @@ target_compile_definitions(PalLink PRIVATE PALLINK_BUILD_DLL)
 
 if (WIN32)
     target_compile_definitions(PalLink PRIVATE
-        "UNICODE"
-        "_UNICODE"
-        "NOMINMAX"
-        "WIN32_LEAN_AND_MEAN"
+        UNICODE
+        _UNICODE        
+        _WIN32_WINNT=0x0A00
+        NOMINMAX
+        WIN32_LEAN_AND_MEAN
     )
 endif()
 
@@ -95,6 +105,7 @@ target_link_libraries(PalLink
         spdlog::spdlog
         PolyHook_2
         Crow::Crow
+        RapidJSON
 )
 
 

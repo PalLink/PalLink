@@ -24,7 +24,8 @@
 #ifndef ASMJIT_ASMJIT_H_INCLUDED
 #define ASMJIT_ASMJIT_H_INCLUDED
 
-#pragma message("asmjit/asmjit.h is deprecated! Please use asmjit/[core|x86|a64|host].h instead.")
+// Note@ 7th Aug. 2025: PolyHook 2.0 needs it this way.
+// #pragma message("asmjit/asmjit.h is deprecated! Please use asmjit/[core|x86|a64|host].h instead.")
 
 #include "./core.h"
 
