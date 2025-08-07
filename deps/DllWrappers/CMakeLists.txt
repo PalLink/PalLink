@@ -6,8 +6,9 @@ function(add_dll_wrapper_library MODULE_NAME)
     add_library(${TARGET_NAME} SHARED)
     add_dependencies(${TARGET_NAME} spdlog)
 
-    set_target_properties(${TARGET_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/$<CONFIG>/wrapper"
+    set_target_properties(${TARGET_NAME} 
+        PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/$<CONFIG>/wrapper"
     )
 
     target_compile_definitions(${TARGET_NAME} PRIVATE
@@ -47,3 +48,11 @@ add_dll_wrapper_library("gdi32")
 add_dll_wrapper_library("psapi")
 add_dll_wrapper_library("version")
 add_dll_wrapper_library("xinput1_3")
+
+if(NOT "${USED_DLL_WRAPPER}" STREQUAL "")
+    set_target_properties(${USED_DLL_WRAPPER} 
+        PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/$<CONFIG>"
+    )
+    message(STATUS "Target Dll Wrapper: ${USED_DLL_WRAPPER}")
+endif()

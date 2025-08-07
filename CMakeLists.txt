@@ -14,6 +14,10 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: Debug RelWithDebInfo." FORCE)
 endif()
 
+if (WIN32)
+    set(USED_DLL_WRAPPER "d3d9" CACHE STRING "Target DLL wrapper to use")
+endif()
+
 ################
 # Dependencies #
 ################
