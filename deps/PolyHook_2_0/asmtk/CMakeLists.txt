@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.16)
 
 cmake_policy(PUSH)
 cmake_policy(SET CMP0063 NEW) # Honor visibility properties.

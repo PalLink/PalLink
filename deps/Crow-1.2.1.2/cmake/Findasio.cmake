@@ -14,7 +14,6 @@
 #     asio::asio
 #
 
-message(STATUS "Asio include dir found: ${ASIO_INCLUDE_DIR}")
 find_package(Threads QUIET)
 if (Threads_FOUND)
   find_path(ASIO_INCLUDE_DIR asio.hpp)

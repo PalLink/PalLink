@@ -11,6 +11,7 @@ set_target_properties(spdlog PROPERTIES FOLDER "Dependencies")
 ################
 set(POLYHOOK_BUILD_STATIC_RUNTIME OFF CACHE BOOL "" FORCE)
 set(POLYHOOK_BUILD_SHARED_LIB OFF CACHE BOOL "" FORCE)
+set(ZYDIS_BUILD_DOXYGEN OFF CACHE BOOL "" FORCE)
 add_subdirectory(PolyHook_2_0)
 set_target_properties(asmjit PROPERTIES FOLDER "Dependencies")
 set_target_properties(asmtk PROPERTIES FOLDER "Dependencies")

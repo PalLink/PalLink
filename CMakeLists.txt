@@ -16,6 +16,8 @@ endif()
 
 if (WIN32)
     set(USED_DLL_WRAPPER "d3d9" CACHE STRING "Target DLL wrapper to use")
+
+    set(THREADS_PREFER_PTHREAD_FLAG OFF)
 endif()
 
 ################

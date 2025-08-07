@@ -2,7 +2,7 @@ if (TARGET Zycore)
     return()
 endif ()
 
-cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.15")
     # Enable runtime library selection via CMAKE_MSVC_RUNTIME_LIBRARY
@@ -41,6 +41,9 @@ option(ZYCORE_BUILD_EXAMPLES
     OFF)
 option(ZYCORE_BUILD_TESTS
     "Build tests"
+    OFF)
+option(ZYCORE_BUILD_DOXYGEN
+    "Build doxygen"
     OFF)
 
 # =============================================================================================== #
@@ -227,21 +230,22 @@ install(DIRECTORY "include/" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # =============================================================================================== #
 # Doxygen documentation                                                                           #
 # =============================================================================================== #
-
+if (ZYCORE_BUILD_DOXYGEN)
 find_package(Doxygen)
-if (DOXYGEN_FOUND)
-    set(DOXYGEN_GENERATE_MAN YES)
-    doxygen_add_docs(ZycoreDoc "include/Zycore/" ALL)
-    install(
-        DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/html/"
-        DESTINATION "${CMAKE_INSTALL_DOCDIR}/api"
-        COMPONENT Documentation
-    )
-    install(
-        DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/man/man3/"
-        DESTINATION "${CMAKE_INSTALL_MANDIR}/man3"
-        COMPONENT Documentation
-    )
+    if (DOXYGEN_FOUND)
+        set(DOXYGEN_GENERATE_MAN YES)
+        doxygen_add_docs(ZycoreDoc "include/Zycore/" ALL)
+        install(
+            DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/html/"
+            DESTINATION "${CMAKE_INSTALL_DOCDIR}/api"
+            COMPONENT Documentation
+        )
+        install(
+            DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/man/man3/"
+            DESTINATION "${CMAKE_INSTALL_MANDIR}/man3"
+            COMPONENT Documentation
+        )
+    endif()
 endif()
 
 # =============================================================================================== #
