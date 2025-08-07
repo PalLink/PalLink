@@ -35,6 +35,7 @@ set(RAPIDJSON_BUILD_CXX11 OFF CACHE BOOL "" FORCE)
 set(RAPIDJSON_BUILD_CXX20 ON CACHE BOOL "" FORCE)
 set(RAPIDJSON_HAS_STDSTRING ON CACHE BOOL "" FORCE)
 add_subdirectory(rapidjson-1.1.0)
+set_target_properties(RapidJSON PROPERTIES FOLDER "Dependencies")
 
 
 ########

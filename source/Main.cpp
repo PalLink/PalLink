@@ -1,4 +1,4 @@
-#include "PalLink.hpp"
+﻿#include "PalLink.hpp"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
@@ -8,6 +8,10 @@
 #include <polyhook2/Detour/NatDetour.hpp>
 
 #include <crow.h>
+
+#include <rapidjson/document.h>     // rapidjson's DOM-style API
+#include <rapidjson/prettywriter.h> // for stringify JSON
+#include <rapidjson/error/en.h>
 
 namespace
 {
@@ -59,7 +63,37 @@ void startup()
 	printf("%s %s %f\n", "hello", "Palworld!", 0.5f);
 
 	g_restapi_thread = std::thread(test_restapi);
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	const char json_data[] = "{ \"japanese\": \"こんにちは\", \"chinese\" : \"你好\", \"russian\" : \"Привет\", \"english\" : \"Hello\" }";
+	rapidjson::Document doc;
+
+	if (doc.Parse(json_data).HasParseError())
+	{
+		spdlog::error("[JSON] parse error: {}", rapidjson::GetParseError_En(doc.GetParseError()));
+		spdlog::error("[JSON]          at: {}", doc.GetErrorOffset());
+	}
+	else
+	{
+		if (doc.HasMember("japanese") && doc["japanese"].IsString())
+		{
+			spdlog::info("[JSON] Japanese: {}", doc["japanese"].GetString());
+		}
+
+		if (doc.HasMember("chinese") && doc["chinese"].IsString())
+		{
+			spdlog::info("[JSON] Chinese: {}", doc["chinese"].GetString());
+		}
+
+		if (doc.HasMember("russian") && doc["russian"].IsString())
+		{
+			spdlog::info("[JSON] Russian: {}", doc["russian"].GetString());
+		}
+
+		if (doc.HasMember("english") && doc["english"].IsString())
+		{
+			spdlog::info("[JSON] English: {}", doc["english"].GetString());
+		}
+	}
 }
 
 void shutdown()
@@ -82,6 +116,7 @@ void shutdown()
 			case DLL_PROCESS_ATTACH:
 			{
 				DisableThreadLibraryCalls(module);
+				SetConsoleOutputCP(CP_UTF8);
 				startup();
 				return TRUE;
 			}

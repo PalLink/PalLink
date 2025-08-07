@@ -20,6 +20,9 @@ add_subdirectory(deps)
 ###########
 add_library(PalLink SHARED)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: Debug RelWithDebInfo." FORCE)
+endif()
 
 # Output configuration
 if(CMAKE_CONFIGURATION_TYPES)
@@ -95,6 +98,7 @@ target_link_libraries(PalLink
         spdlog::spdlog
         PolyHook_2
         Crow::Crow
+        RapidJSON
 )
 
 
