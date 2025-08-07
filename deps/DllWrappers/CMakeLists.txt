@@ -12,10 +12,11 @@ function(add_dll_wrapper_library MODULE_NAME)
     )
 
     target_compile_definitions(${TARGET_NAME} PRIVATE
-        "NOMINMAX"
-        "WIN32_LEAN_AND_MEAN"
-        "DLL=${TARGET_NAME}"
-        "DLL_NAME=\"${TARGET_NAME}\""
+        NOMINMAX
+        WIN32_LEAN_AND_MEAN
+        _WIN32_WINNT=0x0A00
+        DLL=${TARGET_NAME}
+        DLL_NAME=\"${TARGET_NAME}\"
     )
 
     file(GLOB WRAPPER_SOURCES
