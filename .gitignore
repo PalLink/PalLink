@@ -8,3 +8,21 @@ lib/
 # IDE files
 *.vcxproj
 *.vcxproj.filters
+
+
+
+# CMake build files
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+RapidJSON*.cmake
+RapidJSON.pc
+Testing
+/googletest
+install_manifest.txt
+Doxyfile
+Doxyfile.zh-cn
+DartConfiguration.tcl
+*.nupkg
